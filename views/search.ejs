@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/search_user.css" type="text/css" />
+  <title>Search</title>
+</head>
+
+<body>
+  <p></p>
+  <form action="/searchforuser" method="post" class="container">
+    <input type="text" placeholder="Enter the username... " name="n1" id="fc" />
+    <button type="submit" class="search_button">
+      <img src="css/search.png" />
+    </button>
+  </form>
+  
+  <% if ( found ) { %>
+
+    <form  class="container1">
+      <div class="find">
+        <p class="st">
+          <%= name %>
+        </p>
+        <button type="submit" style="visibility: hidden;" id="showpiece" name="showpiece" value="rt"></button>
+        <button type="submit" class="send" name="sb" value=<%=name %> >Send Request</button>
+      </div>
+    </form>
+
+    <% } else if ( first==false ) { %>
+      <div class="container1">
+        <div class="find">
+          <p>no user found</p>
+        </div>
+        <% } %>
+          <!-- <script src="/socket.io/socket.io.js"></script> -->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <script>
+           let sender = localStorage.getItem("user");// current user
+            let reciever= "<%= name %>";
+            console.log(reciever+" "+ sender);
+            $(".send").click(function(){
+              $.post("/sendrequest",{sen: sender, rec: reciever}, function(data,status){
+                
+              });
+            });
+            
+            
+          </script>
+</body>
+
+</html>

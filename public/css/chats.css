@@ -1,0 +1,93 @@
+.left{
+    width:27vw;
+    position: relative;
+    height: 100vh;
+    float:left;
+    border: 2px solid black;
+    left:0px;
+    border-radius: 13px;
+}
+.space
+{
+    width:1vw;
+    height: 100vh;
+}
+.right{
+    width:67vw;
+    height: 100vh;
+    float: left;
+    position: relative;
+    border: 2px solid red;
+    right:0px;
+    border-radius: 13px;
+}
+.send{
+    border: 2px solid yellow;
+    height: 5vh;
+    width: 12vw;
+    margin: 7px;
+    border-radius: 13px;
+}
+.recieve
+{
+    border: 2px solid rgb(39, 39, 27);
+    height: 5vh;
+    width: 12vw;
+    margin: 7px;
+    border-radius: 13px;
+}
+.container
+{
+    display: flex;
+}
+.pt2{
+   
+    border: 2px solid blue;
+    height: 89vh;
+    border-radius: 15px;
+    margin: 7px;
+}
+.parent{
+  display: flex;
+}
+.name
+{
+    border: 2px solid purple;
+    height: 5vh;
+    border-radius: 15px;
+    margin: 17px 25px 4px 25px;
+
+}
+.msg{
+    
+    border: 2px solid yellow;
+    height: 79vh;
+    margin: 17px 25px 4px 25px;
+    border-radius: 18px;
+}
+.inputMsg{
+    /* border: 2px solid purple; */
+    height: 5vh;
+    border-radius: 15px;
+    margin: 17px 25px 4px 25px;
+    display: flex;
+
+}
+input{
+    width:91%;
+    height: 92%;
+    border-radius: 15px;
+    padding-left: 8px;;
+}
+.sendButton{
+        border-radius: 50%;
+        margin-left: 1%;
+        border: 0px;
+        width:5%;
+        background-color: white;
+        
+}
+img{
+    padding-top: 07%;
+    height:94%;
+}

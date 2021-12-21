@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="css/style.css" type="text/css">
+    <title>Document</title>
+    
+</head>
+<body> 
+    <h1>Log In</h1>
+    <div class="login">
+        <form method="post" action="/login">
+        <p><input type="text" placeholder="Email" name="n3" id = "n3"></p>
+        <p><input type="password" placeholder="Password" name="n4"></p>
+        <button type="submit" onclick="save()">Login</button>
+    </form>
+    </div>
+    <button class="btn info" onclick="location.href = 'register';">Create a new account</button>
+   
+   <script>
+       function save(){
+       console.log(document.getElementById("n3").value); 
+        localStorage.setItem("user" , document.getElementById("n3").value);
+        console.log(localStorage.getItem("user"));
+       }
+   </script>
+   
+</body>
+
+
+</html>
