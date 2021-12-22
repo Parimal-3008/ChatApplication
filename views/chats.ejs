@@ -19,8 +19,8 @@
             </button>
           </form>
 
-            <form action="/request_received" method="post">
-              <button type="submit" class="recieve" value="<%= sender %>" >
+            <form action="/requestReceived" method="post">
+              <button type="submit" id="recieve" name="recs"   >
                 Requests recieved
               </button>
             </form>
@@ -46,12 +46,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
       document.getElementById("u").innerHTML = localStorage.getItem("user");
+     
       let sender = localStorage.getItem("user"); // current user
-      
-      console.log( sender);
-      // $(".recieve").click(function () {
+      document.getElementById("recieve").value = sender;
+       console.log( sender);
+       $("#recieve").value = sender ;
+      // $("#recieve").click(function () {
       //   $.post(
-      //     "/request_received",
+      //     "/requestReceived",
       //     { user: sender},
           
       //     function (data, status) {}

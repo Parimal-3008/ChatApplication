@@ -8,19 +8,28 @@
     <title>Requests</title>
 </head>
 <body>
-    <% for( i in arr2) { %>
+   
     <div class="container">
-       
+       <% for(  i in arr2 ) { %>
     <div class="child">
-          <%= i %>
-        <button type="submit" class="btn" id="tick"></button>
-        <button type="submit" class="btn" id="cross"></button>
-    </div>
+         <P id="nme"> <%= arr2[i] %></P>
+        <button type="submit" class="btn" id="tick"  onclick="tick( '<%- arr2[i] %>' )"></button>
+        <button type="submit" class="btn" id="cross" onclick="cross('<%- arr2[i] %>'  )"></button>
     </div>
     <% } %>
+    </div>
+    <script>
+        function tick(user){
+            console.log(user +" tick");
+        };
+       function cross(user){
+            console.log(user +" cross");
+        };
+    </script>
     
 </body>
 </html>
 <!-- 
     <img src="css/remove.png">
+
  -->

@@ -31,7 +31,7 @@ app.get("/chat", function (req, res) {
 app.get("/login", function (req, res) {
   res.render("login.html");
 });
-app.get("/register",function(req,res){
+app.get("/register", function (req, res) {
   res.render("register");
 });
 
@@ -87,6 +87,31 @@ app.get("/searchforuser", function (req, res) {
   res.render("search", { name: null, found: false, first: true });
 });
 
+app.post("/sendrequest", function (req, res) {
+  console.log(req.body);
+  f1.findOne({ username: req.body.rec }, function (err, founduser) {
+    if (founduser) {
+      let b = false;
+      console.log(founduser);
+      for (i in founduser.request_recieved) {
+        if (i == req.body.sen) b = true;
+      }
+      if (b == false) {
+        f1.findOneAndUpdate(
+          { username: req.body.rec },
+          { $push: { request_recieved: req.body.sen } },
+          { safe: true, upsert: true },
+          function (err, doc) {
+            if (err) {
+              console.log(err);
+            } else {
+            }
+          }
+        );
+      }
+    }
+  });
+});
 app.post("/searchforuser", function (req, res) {
   var find = req.body.n1;
 
@@ -104,43 +129,18 @@ app.post("/searchforuser", function (req, res) {
     }
   });
 });
-
-app.post("/sendrequest", function (req, res) {
-  console.log(req.body);
-  f1.findOne({ username: req.body.rec }, function (err, founduser) {
-    if(founduser)
-    {
-      let b = false;
-      console.log(founduser);
-      for (i in founduser.request_recieved) {
-        if (i == req.body.sen)
-          b = true;
-      }
-        if (b == false) {
-      f1.findOneAndUpdate({ username: req.body.rec }, { $push: { request_recieved: req.body.sen } }, { safe: true, upsert: true },
-        function (err, doc) {
-          if (err) {
-            console.log(err);
-          } else {
-          }
-        });
-    }
-    }
-   });
-});
-
-app.post("/request_received",   function(req,res){
-  let v= req.body.user;
-  let arr= [];
+app.post("/requestReceived", function (req, res) {
+  let v = req.body.recs;
+  let arr = [String];
   console.log(v);
-   f1.findOne({username: v },async function(err, founduser){
-     console.log(founduser);
-     arr = await founduser.request_recieved;
-     
-     
-     
-    //  console.log(founduser.request_recieved);
+  f1.findOne({ username: v }, async function (err, founduser) {
+    if (err) console.log(err);
+    else {
+      if (founduser) {
+        console.log(founduser);
+        arr = await founduser.request_recieved;
+        res.render("request_received", { arr2: arr });
+      }
+    }
   });
-  res.render("request_received",{arr2: arr});
-  
 });
