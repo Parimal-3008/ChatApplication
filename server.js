@@ -144,3 +144,9 @@ app.post("/requestReceived", function (req, res) {
     }
   });
 });
+app.post("/doOnrequest",function(req,res){
+  let acc = req.body.acc;
+  let friend =req.body.friend;
+  let status = req.body.status;
+  console.log(req.body);
+});
