@@ -144,9 +144,110 @@ app.post("/requestReceived", function (req, res) {
     }
   });
 });
-app.post("/doOnrequest",function(req,res){
+app.post("/doOnrequest", function (req, res) {
   let acc = req.body.acc;
-  let friend =req.body.friend;
+  let friend = req.body.friend;
   let status = req.body.status;
   console.log(req.body);
+  if (status == "accepted") {
+    let arr35 = [String];
+    let roomid = Math.floor(100000 + Math.random() * 900000);
+    f1.findOne({ username: acc }, async function (err, founduser) {
+      if (founduser) {
+        let arr = await founduser.request_recieved;
+        arr = arr.filter((i) => i != friend);
+        console.log(arr);
+        arr35 = arr;        //updating the request recieved list
+        f1.findOneAndUpdate(
+          { username: acc },
+          { $set: { request_recieved: arr } },
+          { safe: true, upsert: true },
+          function (err, doc) {
+            if (err) {
+              console.log(err);
+            } else {
+            }
+          }
+        );
+
+        let fg = await founduser.friends;
+        let x = {
+          username: friend,
+          roomid: roomid,
+          msg: {},
+        };
+        fg.push(x);
+        console.log(fg);        //adding new friend to our logged in user
+        f1.findOneAndUpdate(
+          { username: acc },
+          { $set: { friends: fg } },
+          { safe: true, upsert: true },
+          function (err, doc) {
+            if (err) {
+              console.log(err);
+            } else {
+            }
+          }
+        );
+       
+      }
+    });
+    f1.findOne({ username: friend }, function (err, founduser) {
+      let arr3 = founduser.friends;
+      let y = {
+        username: acc,
+        roomid: roomid,
+        msg: {},
+      };
+      arr3.push(y);      //adding logged in user as a friend to the friends account
+      f1.findOneAndUpdate(
+        { username: friend },
+        { $set: { friends: arr3 } },
+        { safe: true, upsert: true },
+        function (err, doc) {
+          if (err) {
+            console.log(err);
+          } else {
+          }
+        }
+      );
+    });
+    res.render("request_received", { arr2: arr35 });
+  }
+  else {
+    let arr35 = [String];
+    let roomid = Math.floor(100000 + Math.random() * 900000);
+    f1.findOne({ username: acc }, async function (err, founduser) {
+      if (founduser) {
+        let arr = founduser.request_recieved;
+        arr = arr.filter((i) => i != friend);
+        console.log(arr);
+        arr35 = arr;        //updating the request recieved list i.e removing the request
+        f1.findOneAndUpdate(
+          { username: acc },
+          { $set: { request_recieved: arr } },
+          { safe: true, upsert: true },
+          function (err, doc) {
+            if (err) {
+              console.log(err);
+            } else {
+            }
+          }
+        );
+      }
+    });
+    res.render("request_received", { arr2: arr35 });
+  }
 });
+// {
+//   username: String,
+//   password: String,
+//   request_recieved: [{ type: String }],
+//   friends: [
+//     {
+//       username: String,
+//       roomid: String,
+//       msg: [{ send_recieved: String, DateTime: String, content: String }],
+//     },
+//   ],
+// }
